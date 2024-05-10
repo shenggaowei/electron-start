@@ -7,6 +7,12 @@
 const { app, BrowserWindow, ipcMain } = require("electron/main");
 const path = require("node:path");
 
+function handleSetTitle(event, title) {
+  const webContents = event.sender;
+  const win = BrowserWindow.fromWebContents(webContents);
+  win.setTitle(title);
+}
+
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
@@ -21,6 +27,7 @@ const createWindow = () => {
 };
 
 app.whenReady().then(() => {
+  ipcMain.on("set-title", handleSetTitle);
   createWindow();
   // ipcMain 通信，设置主进程处理程序
   ipcMain.handle("ping", () => "pong");

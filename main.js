@@ -12,6 +12,7 @@ const createWindow = () => {
     width: 800,
     height: 800,
     webPreferences: {
+      // 预加载（preload）脚本包含了那些执行于渲染器进程中，且先于网页内容开始加载的代码
       preload: path.join(__dirname, "preload.js"),
     },
   });

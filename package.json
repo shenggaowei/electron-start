@@ -1,26 +1,36 @@
 {
   "name": "electron-start",
   "version": "1.0.0",
-  "description": "",
+  "description": "electron 客户端",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron-forge start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shenggaowei/electron-start.git"
   },
-  "author": "",
+  "author": "weishenggao",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/shenggaowei/electron-start/issues"
   },
   "homepage": "https://github.com/shenggaowei/electron-start#readme",
   "devDependencies": {
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-deb": "^7.4.0",
+    "@electron-forge/maker-rpm": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "@electron-forge/maker-zip": "^7.4.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
+    "@electron-forge/plugin-fuses": "^7.4.0",
+    "@electron/fuses": "^1.8.0",
     "electron": "^30.0.3"
   },
   "dependencies": {
-    "@electron-forge/cli": "^7.4.0"
+    "electron-squirrel-startup": "^1.0.0"
   }
 }

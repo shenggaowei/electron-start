@@ -1,0 +1,26 @@
+{
+  "name": "electron-start",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shenggaowei/electron-start.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shenggaowei/electron-start/issues"
+  },
+  "homepage": "https://github.com/shenggaowei/electron-start#readme",
+  "devDependencies": {
+    "electron": "^30.0.3"
+  },
+  "dependencies": {
+    "@electron-forge/cli": "^7.4.0"
+  }
+}

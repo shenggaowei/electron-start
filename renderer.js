@@ -16,8 +16,8 @@ const func = async () => {
 };
 
 setButton.addEventListener("click", () => {
-  console.log("执行了");
   const title = titleInput.value;
+  // 渲染进程调用主进程方法
   window.electronAPI.setTitle(title);
 });
 
@@ -26,6 +26,7 @@ getFileBtn.addEventListener("click", async () => {
   filePathElement.innerText = filePath;
 });
 
+// 主进程向渲染进程通信通过回调的方式
 window.electronAPI.onUpdateCounter((value) => {
   const oldValue = Number(counter.innerText);
   const newValue = oldValue + value;

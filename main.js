@@ -4,13 +4,20 @@
 
 // app 控制应用程序的事件生命周期
 // BrowserWindow 创建和管理应用程序窗口
-const { app, BrowserWindow, ipcMain } = require("electron/main");
+const { app, Menu, BrowserWindow, ipcMain, dialog } = require("electron/main");
 const path = require("node:path");
 
 function handleSetTitle(event, title) {
   const webContents = event.sender;
   const win = BrowserWindow.fromWebContents(webContents);
   win.setTitle(title);
+}
+
+async function handleFileOpen() {
+  const { canceled, filePaths } = await dialog.showOpenDialog({});
+  if (!canceled) {
+    return filePaths[0];
+  }
 }
 
 const createWindow = () => {
@@ -23,11 +30,34 @@ const createWindow = () => {
     },
   });
 
+  const menu = Menu.buildFromTemplate([
+    {
+      label: app.name,
+      submenu: [
+        {
+          click: () => win.webContents.send("update-counter", 1),
+          label: "Increment",
+        },
+        {
+          click: () => win.webContents.send("update-counter", -1),
+          label: "Decrement",
+        },
+      ],
+    },
+  ]);
+
+  Menu.setApplicationMenu(menu);
+
   win.loadFile("index.html");
 };
 
 app.whenReady().then(() => {
   ipcMain.on("set-title", handleSetTitle);
+  ipcMain.on("counter-value", (_event, value) => {
+    console.log(value);
+  });
+  ipcMain.handle("dialog:openFile", handleFileOpen);
+
   createWindow();
   // ipcMain 通信，设置主进程处理程序
   ipcMain.handle("ping", () => "pong");

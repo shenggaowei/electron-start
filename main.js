@@ -4,7 +4,7 @@
 
 // app 控制应用程序的事件生命周期
 // BrowserWindow 创建和管理应用程序窗口
-const { app, Menu, BrowserWindow, ipcMain, dialog } = require("electron/main");
+const { app, Menu, BrowserWindow, nativeTheme, ipcMain, dialog } = require("electron/main");
 const path = require("node:path");
 
 function handleSetTitle(event, title) {
@@ -51,6 +51,20 @@ const createWindow = () => {
   win.loadFile("index.html");
 };
 
+ipcMain.handle("dark-mode:toggle", () => {
+  if (nativeTheme.shouldUseDarkColors) {
+    nativeTheme.themeSource = "light";
+  } else {
+    nativeTheme.themeSource = "dark";
+  }
+  return nativeTheme.shouldUseDarkColors;
+});
+
+ipcMain.handle("dark-mode:system", () => {
+  nativeTheme.themeSource = "system";
+});
+
+// 在 Electron 中，只有在 app 模块的 ready 事件触发后才能创建 BrowserWindows 实例。
 app.whenReady().then(() => {
   ipcMain.on("set-title", handleSetTitle);
   ipcMain.on("counter-value", (_event, value) => {

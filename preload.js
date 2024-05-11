@@ -31,3 +31,8 @@ contextBridge.exposeInMainWorld("electronAPI", {
   onUpdateCounter: (callback) => ipcRenderer.on("update-counter", (_event, value) => callback(value)),
   counterValue: (value) => ipcRenderer.send("counter-value", value),
 });
+
+contextBridge.exposeInMainWorld("darkMode", {
+  toggle: () => ipcRenderer.invoke("dark-mode:toggle"),
+  system: () => ipcRenderer.invoke("dark-mode:system"),
+});
